@@ -8,7 +8,7 @@ function findOrderByUser() {
 		return null;
 	}
 }
-// je crée une fonction pour 
+// je crée une fonction pour récuperer la commande du produit et la quantité en une fois
 function createOrder($product, $quantity) {
 	$order = [
 		"product" => $product,
