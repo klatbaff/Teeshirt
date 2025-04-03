@@ -10,6 +10,8 @@ session_start();
 
 $message = "";
 
+// je vérifie que la quantité est bien renseignée et que le produit est bien sélectionnée
+
 if (array_key_exists("quantity", $_POST) && 
 	array_key_exists("product", $_POST))
 {
@@ -19,14 +21,15 @@ if (array_key_exists("quantity", $_POST) &&
 	//	"quantity" => $_POST["quantity"]
 	//  ];)
 
-	// Je déclare que ma variable order prends en compte ma fonction pour créer une commande
-	$order = createOrder($_POST['product'], $_POST['quantity']);
+	//j'utilise le bloc try-catch pour intercepter les erreurs et afficher un message d'erreur 
+     //si une exception est lancée dans la fonction createOrder
+	try {
+			$order = createOrder($_POST['product'], $_POST['quantity']);
 	// si c'est une nouvelle commande je l'enregistre
-	if ($order) {
-		saveOrder($order);
-    // sinon cle ma renvoie un message d'erreur
-	} else {
-		$message = "impossible de créer la commande";
+		   saveOrder($order);
+    //  sinon je recupère un message d'erreur de l'exception
+	} catch(Exception $e) {
+		$message = $e->getMessage();
 	}
 
 	// j'ajoute dans "ma" zone de stockage de session (sur le serveur) la commande que je viens de créer
