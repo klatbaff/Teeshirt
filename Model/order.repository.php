@@ -24,10 +24,11 @@ function createOrder($product, $quantity) {
 		//cela n'est pas possible donc retour false
 		return false;
 	} else {
-		//sinon cela me retourne le produit et sa quantité
+		//sinon cela me retourne le produit et sa quantité et la date de création
 		$order = [
 			"product" => $product,
-			"quantity" => $quantity
+			"quantity" => $quantity,
+			"createdAt" => new DateTime()
 		];
 
 			return $order;

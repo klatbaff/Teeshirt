@@ -20,12 +20,12 @@
 	<main>
 
 <!-- je regarde s'il y une clé order dans mon espace de stockage de session sur le serveur
- si oui, j'affiche les infos à l'intérieur
+ si oui, j'affiche les infos à l'intérieur-->
  
--->
 	<?php if (array_key_exists("order", $_SESSION)) { ?>
 		<p>Vous avez une commande en attente : <?php echo $_SESSION["order"]["quantity"]; ?> : <?php echo $_SESSION["order"]["product"]; ?></p>
-	<?php } ?>
+		<p>Créée le <?php echo $orderByUser['createdAt'] ->format('y-m-d'); ?></p> 
+		<?php } ?>
 
 
 
