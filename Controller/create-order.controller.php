@@ -2,10 +2,13 @@
 
 require_once('../Config.php');
 require_once('../Model/product.repository.php');
+require_once('../Model/order.repository.php');
 
 // je démarre la session : php créé un identifiant unique, l'associe à une zone de stockage sur le serveur
 // et envoie l'identifiant au navigateur qui le stocke en cookie
 session_start();
+
+$message = "";
 
 if (array_key_exists("quantity", $_POST) && 
 	array_key_exists("product", $_POST))
@@ -16,9 +19,15 @@ if (array_key_exists("quantity", $_POST) &&
 	//	"quantity" => $_POST["quantity"]
 	//  ];)
 
-	// Je regroupe
+	// Je déclare que ma variable order prends en compte ma fonction pour créer une commande
 	$order = createOrder($_POST['product'], $_POST['quantity']);
-	saveOrder($order);
+	// si c'est une nouvelle commande je l'enregistre
+	if ($order) {
+		saveOrder($order);
+    // sinon cle ma renvoie un message d'erreur
+	} else {
+		$message = "impossible de créer la commande";
+	}
 
 	// j'ajoute dans "ma" zone de stockage de session (sur le serveur) la commande que je viens de créer
 	// $_SESSION["order"] = $order;
